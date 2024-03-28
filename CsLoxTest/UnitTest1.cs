@@ -14,6 +14,15 @@ namespace CsLoxTest
         }
 
         [Fact]
+        public void Can_Scan_Token_SingleChar()
+        {
+            var scanner = new Scanner("   =   ");
+            var tokens = scanner.Scan();
+
+            Assert.Single(tokens);
+        }
+
+        [Fact]
         public void Can_Scan_Token()
         {
             var scanner = new Scanner("var language = \"lox\";");

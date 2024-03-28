@@ -16,11 +16,33 @@ namespace CsLox
             var tokens = new List<Token>();
 
             string[] keywords = { "var" };
-            var foundAt = _v.IndexOf(keywords[0], _current);
-            if (foundAt >= 0)
+
+            char[] singleCharactors = { '=' };
+
+            while (_current < _v.Length)
             {
-                tokens.Add(new Token());
-                _current = foundAt + keywords[0].Length;
+                if (_v[_current] == ' ')
+                {
+                    ++_current;
+                    continue;
+                }
+
+                if (_v[_current] == singleCharactors[0])
+                {
+                    tokens.Add(new Token());
+                    ++_current;
+                    continue;
+                }
+
+                var foundAt = _v.IndexOf(keywords[0], _current);
+                if (foundAt >= 0)
+                {
+                    tokens.Add(new Token());
+                    _current = foundAt + keywords[0].Length;
+                    continue;
+                }
+
+                ++_current;
             }
 
             return tokens;
