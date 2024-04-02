@@ -1,6 +1,13 @@
 ﻿namespace CsLox
 {
-    public class Token
+    public record Token
     {
+        public enum TokenType
+        {
+            Equal,
+            Var,
+        };
+
+        TokenType Type;
     }
 }

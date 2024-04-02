@@ -23,6 +23,15 @@ namespace CsLoxTest
         }
 
         [Fact]
+        public void Can_Scan_Token_SingleChar_All()
+        {
+            var scanner = new Scanner("(){},.-+;/*");
+            var tokens = scanner.Scan();
+
+            Assert.Equal(11, tokens.Count);
+        }
+
+        [Fact]
         public void Can_Scan_Token()
         {
             var scanner = new Scanner("var language = \"lox\";");

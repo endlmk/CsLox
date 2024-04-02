@@ -17,7 +17,20 @@ namespace CsLox
 
             string[] keywords = { "var" };
 
-            char[] singleCharactors = { '=' };
+            char[] singleCharactors = {  
+                '=',
+                '(',
+                ')',
+                '{',
+                '}',
+                ',',
+                '.',
+                '-',
+                '+',
+                ';',
+                '/',
+                '*'
+            };
 
             while (_current < _v.Length)
             {
@@ -27,7 +40,8 @@ namespace CsLox
                     continue;
                 }
 
-                if (_v[_current] == singleCharactors[0])
+                var foundChar = singleCharactors.FirstOrDefault(c => c == _v[_current]);
+                if (foundChar != default(char))
                 {
                     tokens.Add(new Token());
                     ++_current;
