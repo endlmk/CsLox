@@ -4,6 +4,7 @@ namespace CsLox
     public class Scanner
     {
         private string _v;
+        private int _start = 0;
         private int _current = 0;
 
         public Scanner(string v)
@@ -58,6 +59,8 @@ namespace CsLox
 
                 ++_current;
             }
+
+            tokens.Add(new Token());
 
             return tokens;
         }
