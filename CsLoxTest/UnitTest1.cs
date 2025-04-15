@@ -1,3 +1,4 @@
+using System.Text.Json;
 using CsLox;
 
 namespace CsLoxTest
@@ -29,6 +30,20 @@ namespace CsLoxTest
             var tokens = scanner.Scan();
 
             Assert.Equal(12, tokens.Count);
+            Assert.Equal(tokens, [
+                new Token(Token.TokenType.LEFT_PAREN),
+                new Token(Token.TokenType.RIGHT_PAREN),
+                new Token(Token.TokenType.LEFT_BRACE),
+                new Token(Token.TokenType.RIGHT_BRACE),
+                new Token(Token.TokenType.COMMA),
+                new Token(Token.TokenType.DOT),
+                new Token(Token.TokenType.MINUS),
+                new Token(Token.TokenType.PLUS),
+                new Token(Token.TokenType.SEMICOLON),
+                new Token(Token.TokenType.SLASH),
+                new Token(Token.TokenType.STAR),
+                new Token(Token.TokenType.EOF),
+            ]);
         }
 
         // [Fact]

@@ -18,41 +18,41 @@ namespace CsLox
 
             string[] keywords = { "var" };
 
-            char[] singleCharactors = {  
-                '=',
-                '(',
-                ')',
-                '{',
-                '}',
-                ',',
-                '.',
-                '-',
-                '+',
-                ';',
-                '/',
-                '*'
+            var singleCharactors = new Dictionary<char, Token.TokenType>
+            { 
+                { '=', Token.TokenType.Equal },
+                { '(', Token.TokenType.LEFT_PAREN },
+                { ')', Token.TokenType.RIGHT_PAREN },
+                { '{', Token.TokenType.LEFT_BRACE },
+                { '}', Token.TokenType.RIGHT_BRACE },
+                { ',', Token.TokenType.COMMA },
+                { '.', Token.TokenType.DOT },
+                { '-', Token.TokenType.MINUS },
+                { '+', Token.TokenType.PLUS },
+                { ';', Token.TokenType.SEMICOLON },
+                { '/', Token.TokenType.SLASH },
+                { '*', Token.TokenType.STAR }
             };
 
             while (_current < _v.Length)
             {
                 if (_v[_current] == ' ')
                 {
-                    ++_current;
+                    Advance();
                     continue;
                 }
 
-                var foundChar = singleCharactors.FirstOrDefault(c => c == _v[_current]);
-                if (foundChar != default(char))
+                if (singleCharactors.TryGetValue(_v[_current], out var tokenType))
                 {
-                    tokens.Add(new Token());
-                    ++_current;
+                    tokens.Add(new Token(tokenType));
+                    Advance();
                     continue;
                 }
 
                 var foundAt = _v.IndexOf(keywords[0], _current);
                 if (foundAt >= 0)
                 {
-                    tokens.Add(new Token());
+                    tokens.Add(new Token(Token.TokenType.Var));
                     _current = foundAt + keywords[0].Length;
                     continue;
                 }
@@ -60,9 +60,14 @@ namespace CsLox
                 ++_current;
             }
 
-            tokens.Add(new Token());
+            tokens.Add(new Token(Token.TokenType.EOF));
 
             return tokens;
+        }
+
+        private void Advance()
+        {
+            ++_current;
         }
     }
 }
