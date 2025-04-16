@@ -49,6 +49,13 @@ namespace CsLox
                     continue;
                 }
 
+                switch(_v[_current])
+                {
+                    case ' ' or '\t':
+                        Advance();
+                        continue;
+                }
+
                 var foundAt = _v.IndexOf(keywords[0], _current);
                 if (foundAt >= 0)
                 {
@@ -56,8 +63,8 @@ namespace CsLox
                     _current = foundAt + keywords[0].Length;
                     continue;
                 }
-
-                ++_current;
+                
+                throw new Exception($"Unexpected character '{_v[_current]}'");
             }
 
             tokens.Add(new Token(Token.TokenType.EOF));

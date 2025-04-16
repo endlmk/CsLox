@@ -46,6 +46,13 @@ namespace CsLoxTest
             ]);
         }
 
+        [Fact]
+        public void Throw_if_unexpected_char()
+        {
+            var scanner = new Scanner("@");
+            Assert.Throws<Exception>(() => scanner.Scan());
+        }
+
         // [Fact]
         // public void Can_Scan_Token()
         // {
